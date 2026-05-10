@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dialogo Socratico — Amicizia e Rispetto</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --viola: #3C3489;
+    --viola-chiaro: #EDE9FE;
+    --viola-medio: #7F77DD;
+    --oro: #BA7517;
+    --oro-chiaro: #FAEEDA;
+    --rosso: #A32D2D;
+    --rosso-chiaro: #FCEBEB;
+    --verde: #0F6E56;
+    --verde-chiaro: #E1F5EE;
+    --grigio: #5F5E5A;
+    --grigio-chiaro: #F1EFE8;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #FAF8F3;
+    font-family: 'Lora', Georgia, serif;
+    color: #2C2C2A;
+    min-height: 100vh;
+  }
+
+  /* HEADER */
+  header {
+    background: var(--viola);
+    padding: 3rem 2rem 2.5rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  header::before {
+    content: '';
+    position: absolute;
+    top: -60px; left: -60px;
+    width: 200px; height: 200px;
+    border-radius: 50%;
+    border: 40px solid rgba(255,255,255,0.05);
+  }
+  header::after {
+    content: '';
+    position: absolute;
+    bottom: -80px; right: -40px;
+    width: 250px; height: 250px;
+    border-radius: 50%;
+    border: 50px solid rgba(255,255,255,0.04);
+  }
+  header h1 {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: clamp(1.6rem, 4vw, 2.8rem);
+    color: white;
+    letter-spacing: 0.02em;
+    margin-bottom: 0.5rem;
+    position: relative;
+  }
+  header p {
+    font-family: 'Lora', Georgia, serif;
+    font-style: italic;
+    color: #CECBF6;
+    font-size: clamp(0.85rem, 2vw, 1rem);
+    position: relative;
+  }
+  .students {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    position: relative;
+  }
+  .student-pill {
+    background: rgba(255,255,255,0.12);
+    border: 1px solid rgba(255,255,255,0.2);
+    color: #CECBF6;
+    padding: 0.25rem 0.85rem;
+    border-radius: 20px;
+    font-size: 0.78rem;
+    letter-spacing: 0.05em;
+  }
+
+  /* MAIN */
+  main {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 2.5rem 1.5rem 4rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  /* VIGNETTA */
+  .vignetta {
+    background: white;
+    border-radius: 16px;
+    border: 1.5px solid #DDD8CC;
+    overflow: hidden;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+    animation: fadeUp 0.5s ease both;
+  }
+  .vignetta:nth-child(1) { animation-delay: 0.05s; }
+  .vignetta:nth-child(2) { animation-delay: 0.1s; }
+  .vignetta:nth-child(3) { animation-delay: 0.15s; }
+  .vignetta:nth-child(4) { animation-delay: 0.2s; }
+  .vignetta:nth-child(5) { animation-delay: 0.25s; }
+  .vignetta:nth-child(6) { animation-delay: 0.3s; }
+  .vignetta:nth-child(7) { animation-delay: 0.35s; }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .vignetta-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.9rem 1.4rem;
+    border-bottom: 1px solid #EEE8DC;
+  }
+  .numero {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--viola);
+    min-width: 2rem;
+  }
+  .vignetta-titolo {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 1rem;
+    color: var(--viola);
+    font-weight: 700;
+  }
+
+  .vignetta-body {
+    padding: 1.5rem 1.4rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  /* SCENA */
+  .scena {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+  .scena.destra { flex-direction: row-reverse; }
+
+  .personaggio {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.3rem;
+    min-width: 64px;
+  }
+  .avatar {
+    width: 54px;
+    height: 54px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.6rem;
+    border: 2px solid;
+    flex-shrink: 0;
+  }
+  .avatar.socrate  { background: var(--viola-chiaro); border-color: var(--viola-medio); }
+  .avatar.studente { background: var(--oro-chiaro);   border-color: var(--oro); }
+  .avatar.bullo    { background: var(--rosso-chiaro); border-color: var(--rosso); }
+  .avatar.cambiato { background: var(--verde-chiaro); border-color: var(--verde); }
+
+  .nome {
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--grigio);
+    text-align: center;
+  }
+
+  .bubble {
+    border-radius: 12px;
+    padding: 0.75rem 1rem;
+    font-size: 0.92rem;
+    line-height: 1.6;
+    max-width: calc(100% - 80px);
+    border: 1px solid;
+    position: relative;
+  }
+  .bubble.soc {
+    background: var(--viola-chiaro);
+    border-color: var(--viola-medio);
+    color: var(--viola);
+    font-style: italic;
+  }
+  .bubble.std {
+    background: #FFFDF8;
+    border-color: #DDD8CC;
+    color: #2C2C2A;
+  }
+  .bubble.bul {
+    background: var(--rosso-chiaro);
+    border-color: #F09595;
+    color: var(--rosso);
+  }
+  .bubble.cam {
+    background: var(--verde-chiaro);
+    border-color: #5DCAA5;
+    color: var(--verde);
+  }
+
+  em.chi {
+    display: block;
+    font-size: 0.72rem;
+    font-style: normal;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-bottom: 0.25rem;
+    opacity: 0.7;
+  }
+
+  /* INSIGHT box */
+  .insight {
+    background: var(--grigio-chiaro);
+    border-left: 4px solid var(--viola-medio);
+    border-radius: 0 10px 10px 0;
+    padding: 0.85rem 1.1rem;
+    font-size: 0.88rem;
+    color: var(--grigio);
+    font-style: italic;
+    margin-top: 0.25rem;
+  }
+  .insight strong {
+    color: var(--viola);
+    font-style: normal;
+  }
+
+  /* DIVIDER */
+  .divider {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    color: #B4B2A9;
+    font-size: 0.8rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  .divider::before, .divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: #DDD8CC;
+  }
+
+  /* CONCLUSIONE */
+  .conclusione {
+    background: var(--viola);
+    border-radius: 16px;
+    padding: 2.5rem 2rem;
+    text-align: center;
+    color: white;
+    box-shadow: 0 8px 40px rgba(60,52,137,0.25);
+  }
+  .conclusione blockquote {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: clamp(1rem, 2.5vw, 1.3rem);
+    font-style: italic;
+    line-height: 1.7;
+    color: white;
+    margin-bottom: 1rem;
+  }
+  .conclusione cite {
+    font-size: 0.82rem;
+    color: #AFA9EC;
+    letter-spacing: 0.08em;
+  }
+
+  /* STRISCIONE BULLI sezione */
+  .sezione-label {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 1.1rem;
+    color: var(--rosso);
+    text-align: center;
+    padding: 0.5rem;
+    border-top: 2px dashed #F7C1C1;
+    border-bottom: 2px dashed #F7C1C1;
+    margin: 0.5rem 0;
+  }
+
+  footer {
+    text-align: center;
+    padding: 1.5rem;
+    color: #B4B2A9;
+    font-size: 0.78rem;
+    letter-spacing: 0.05em;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Dialogo Socratico</h1>
+  <p>sull'amicizia, il rispetto e il bullismo</p>
+  <div class="students">
+    <span class="student-pill">Erika</span>
+    <span class="student-pill">Anita</span>
+    <span class="student-pill">Camilla</span>
+    <span class="student-pill">Angela</span>
+    <span class="student-pill">Eva</span>
+  </div>
+</header>
+
+<main>
+
+  <!-- VIGNETTA 1 -->
+  <div class="vignetta">
+    <div class="vignetta-header">
+      <span class="numero">①</span>
+      <span class="vignetta-titolo">Che cos'è l'amicizia?</span>
+    </div>
+    <div class="vignetta-body">
+      <div class="scena">
+        <div class="personaggio">
+          <div class="avatar socrate">🏛</div>
+          <span class="nome">Socrate</span>
+        </div>
+        <div class="bubble soc">
+          <em class="chi">Socrate chiede:</em>
+          «Dimmi, giovane, che cos'è per te l'amicizia?»
+        </div>
+      </div>
+      <div class="scena destra">
+        <div class="personaggio">
+          <div class="avatar studente">🎒</div>
+          <span class="nome">Anita</span>
+        </div>
+        <div class="bubble std">
+          «È stare insieme, divertirsi… non essere soli.»
+        </div>
+      </div>
+      <div class="scena">
+        <div class="personaggio">
+          <div class="avatar socrate">🏛</div>
+          <span class="nome">Socrate</span>
+        </div>
+        <div class="bubble soc">
+          «Dunque chi sta con te è un amico?»
+        </div>
+      </div>
+      <div class="scena destra">
+        <div class="personaggio">
+          <div class="avatar studente">🎒</div>
+          <span class="nome">Anita</span>
+        </div>
+        <div class="bubble std">«Sì, direi di sì.»</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- VIGNETTA 2 -->
+  <div class="vignetta">
+    <div class="vignetta-header">
+      <span class="numero">②</span>
+      <span class="vignetta-titolo">Chi ti prende in giro è un amico?</span>
+    </div>
+    <div class="vignetta-body">
+      <div class="scena">
+        <div class="personaggio">
+          <div class="avatar socrate">🏛</div>
+          <span class="nome">Socrate</span>
+        </div>
+        <div class="bubble soc">
+          «Anche chi ti prende in giro davanti agli altri?»
+        </div>
+      </div>
+      <div class="scena destra">
+        <div class="personaggio">
+          <div class="avatar studente">🎒</div>
+          <span class="nome">Anita</span>
+        </div>
+        <div class="bubble std">
+          «Beh… loro scherzano, è solo per ridere.»
+        </div>
+      </div>
+      <div class="scena">
+        <div class="personaggio">
+          <div class="avatar socrate">🏛</div>
+          <span class="nome">Socrate</span>
+        </div>
+        <div class="bubble soc">
+          «E tu ridi con lo stesso cuore con cui ridono loro?»
+        </div>
+      </div>
+      <div class="scena destra">
+        <div class="personaggio">
+          <div class="avatar studente">😔</div>
+          <span class="nome">Anita</span>
+        </div>
+        <div class="bubble std">
+          «Non sempre… a volte mi dà fastidio.»
+        </div>
+      </div>
+      <div class="scena">
+        <div class="personaggio">
+          <div class="avatar socrate">🏛</div>
+          <span class="nome">Socrate</span>
+        </div>
+        <div class="bubble soc">
+          «Se qualcosa ti dà fastidio ti fa sentire rispettato o ferito?»
+        </div>
+      </div>
+      <div class="scena destra">
+        <div class="personaggio">
+          <div class="avatar studente">😟</div>
+          <span class="nome">Anita</span>
+        </div>
+        <div class="bubble std">«Forse un po' ferito.»</div>
+      </div>
+      <div class="insight">
+        <strong>Riflessione:</strong> Un amico dovrebbe <em>rispettare</em>, non ferire. Non basta stare insieme.
+      </div>
+    </div>
+  </div>
+
+  <!-- VIGNETTA 3 -->
+  <div class="vignetta">
+    <div class="vignetta-header">
+      <span class="numero">③</span>
+      <span class="vignetta-titolo">Chi pensa solo a sé può essere chiamato amico?</span>
+    </div>
+    <div class="vignetta-body">
+      <div class="scena">
+        <div class="personaggio">
+          <div class="avatar socrate">🏛</div>
+          <span class="nome">Socrate</span>
+        </div>
+        <div class="bubble soc">
+          «E un amico dovrebbe metterti in difficoltà davanti agli altri o aiutarti quando sei in difficoltà?»
+        </div>
+      </div>
+      <div class="scena destra">
+        <div class="personaggio">
+          <div class="avatar studente">🎒</div>
+          <span class="nome">Anita</span>
+        </div>
+        <div class="bubble std">«Aiutarmi.»</div>
+      </div>
+      <div class="scena">
+        <div class="personaggio">
+          <div class="avatar socrate">🏛</div>
+          <span class="nome">Socrate</span>
+        </div>
+        <div class="bubble soc">
+          «E se qualcuno ti mette in difficoltà per farsi accettare dal gruppo, lo fa per il tuo bene o per il proprio?»
+        </div>
+      </div>
+      <div class="scena destra">
+        <div class="personaggio">
+          <div class="avatar studente">🎒</div>
+          <span class="nome">Anita</span>
+        </div>
+        <div class="bubble std">«Per il proprio…»</div>
+      </div>
+      <div class="scena">
+        <div class="personaggio">
+          <div class="avatar socrate">🏛</div>
+          <span class="nome">Socrate</span>
+        </div>
+        <div class="bubble soc">
+          «Allora dimmi: chi pensa solo al proprio vantaggio può essere chiamato amico?»
+        </div>
+      </div>
+      <div class="scena destra">
+        <div class="personaggio">
+          <div class="avatar studente">🎒</div>
+          <span class="nome">Anita</span>
+        </div>
+        <div class="bubble std">«Non credo.»</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- VIGNETTA 4 -->
+  <div class="vignetta">
+    <div class="vignetta-header">
+      <span class="numero">④</span>
+      <span class="vignetta-titolo">Come si chiama ciò che ti fa sentire piccolo?</span>
+    </div>
+    <div class="vignetta-body">
+      <div class="scena">
+        <div class="personaggio">
+          <div class="avatar socrate">🏛</div>
+          <span class="nome">Socrate</span>
+        </div>
+        <div class="bubble soc">
+          «E quando le battute diventano continue e ti fanno sentire piccolo, come si chiama ciò che accade?»
+        </div>
+      </div>
+      <div class="scena destra">
+        <div class="personaggio">
+          <div class="avatar studente">😟</div>
+          <span class="nome">Anita</span>
+        </div>
+        <div class="bubble std">«Forse… bullismo.»</div>
+      </div>
+      <div class="scena">
+        <div class="personaggio">
+          <div class="avatar socrate">🏛</div>
+          <span class="nome">Socrate</span>
+        </div>
+        <div class="bubble soc">
+          «E il bullismo nasce da un'amicizia o da una mancanza di rispetto?»
+        </div>
+      </div>
+      <div class="scena destra">
+        <div class="personaggio">
+          <div class="avatar studente">🎒</div>
+          <span class="nome">Anita</span>
+        </div>
+        <div class="bubble std">«Da una mancanza di rispetto.»</div>
+      </div>
+      <div class="scena">
+        <div class="personaggio">
+          <div class="avatar socrate">🏛</div>
+          <span class="nome">Socrate</span>
+        </div>
+        <div class="bubble soc">«Dunque, cos'è davvero l'amicizia?»</div>
+      </div>
+      <div class="scena destra">
+        <div class="personaggio">
+          <div class="avatar studente">🎒</div>
+          <span class="nome">Anita</span>
+        </div>
+        <div class="bubble std">
+          «È rispetto, sostegno… qualcuno che non ti umilia.»
+        </div>
+      </div>
+      <div class="insight">
+        <strong>Conclusione di Anita:</strong> «Non tutto ciò che chiamiamo amicizia lo è davvero, perché un vero amico non ferisce e non umilia, ma sostiene.»
+      </div>
+    </div>
+  </div>
+
+  <div class="divider">I Bulli entrano nel dialogo</div>
+
+  <!-- VIGNETTA 5 -->
+  <div class="vignetta">
+    <div class="vignetta-header">
+      <span class="numero">⑤</span>
+      <span class="vignetta-titolo">Le battute sono sempre innocenti?</span>
+    </div>
+    <div class="vignetta-body">
+      <div class="scena">
+        <div class="personaggio">
+          <div class="avatar socrate">🏛</div>
+          <span class="nome">Socrate</span>
+        </div>
+        <div class="bubble soc">
+          «Le battute sono sempre innocenti?»
+        </div>
+      </div>
+      <div class="scena destra">
+        <div class="personaggio">
+          <div class="avatar bullo">😏</div>
+          <span class="nome">Bullo 1</span>
+        </div>
+        <div class="bubble bul">«Certo, noi scherziamo soltanto.»</div>
+      </div>
+      <div class="scena">
+        <div class="personaggio">
+          <div class="avatar socrate">🏛</div>
+          <span class="nome">Socrate</span>
+        </div>
+        <div class="bubble soc">«Anche se qualcuno non ride?»</div>
+      </div>
+      <div class="scena destra">
+        <div class="personaggio">
+          <div class="avatar bullo">😏</div>
+          <span class="nome">Bullo 1</span>
+        </div>
+        <div class="bubble bul">«Beh… se non ride è troppo permaloso.»</div>
+      </div>
+      <div class="scena">
+        <div class="personaggio">
+          <div class="avatar socrate">🏛</div>
+          <span class="nome">Socrate</span>
+        </div>
+        <div class="bubble soc">
+          «Se uno soffre mentre gli altri ridono, è ancora divertente?»
+        </div>
+      </div>
+      <div class="scena destra">
+        <div class="personaggio">
+          <div class="avatar bullo">😶</div>
+          <span class="nome">Bullo 1</span>
+        </div>
+        <div class="bubble bul">«Forse… non proprio.»</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- VIGNETTA 6 -->
+  <div class="vignetta">
+    <div class="vignetta-header">
+      <span class="numero">⑥</span>
+      <span class="vignetta-titolo">Chi dovrebbe cambiare comportamento?</span>
+    </div>
+    <div class="vignetta-body">
+      <div class="scena destra">
+        <div class="personaggio">
+          <div class="avatar bullo">😏</div>
+          <span class="nome">Bullo 2</span>
+        </div>
+        <div class="bubble bul">«Però lui se la prende troppo.»</div>
+      </div>
+      <div class="scena">
+        <div class="personaggio">
+          <div class="avatar socrate">🏛</div>
+          <span class="nome">Socrate</span>
+        </div>
+        <div class="bubble soc">
+          «È facile, secondo te, smettere di soffrire quando qualcuno ti prende in giro?»
+        </div>
+      </div>
+      <div class="scena destra">
+        <div class="personaggio">
+          <div class="avatar bullo">😶</div>
+          <span class="nome">Bullo 2</span>
+        </div>
+        <div class="bubble bul">«No, immagino di no.»</div>
+      </div>
+      <div class="scena">
+        <div class="personaggio">
+          <div class="avatar socrate">🏛</div>
+          <span class="nome">Socrate</span>
+        </div>
+        <div class="bubble soc">«Allora chi dei due dovrebbe cambiare comportamento?»</div>
+      </div>
+      <div class="scena destra">
+        <div class="personaggio">
+          <div class="avatar bullo">😶</div>
+          <span class="nome">Bullo 2</span>
+        </div>
+        <div class="bubble bul">«Chi fa soffrire.»</div>
+      </div>
+      <div class="scena destra">
+        <div class="personaggio">
+          <div class="avatar bullo">😏</div>
+          <span class="nome">Bullo 3</span>
+        </div>
+        <div class="bubble bul">«Però nel gruppo ci prendiamo in giro tutti.»</div>
+      </div>
+      <div class="scena">
+        <div class="personaggio">
+          <div class="avatar socrate">🏛</div>
+          <span class="nome">Socrate</span>
+        </div>
+        <div class="bubble soc">«Davvero tutti allo stesso modo?»</div>
+      </div>
+      <div class="scena destra">
+        <div class="personaggio">
+          <div class="avatar bullo">😶</div>
+          <span class="nome">Bullo 3</span>
+        </div>
+        <div class="bubble bul">«Non proprio… alcuni più di altri.»</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- VIGNETTA 7 — finale -->
+  <div class="vignetta">
+    <div class="vignetta-header">
+      <span class="numero">⑦</span>
+      <span class="vignetta-titolo">Cosa rende davvero forte un gruppo?</span>
+    </div>
+    <div class="vignetta-body">
+      <div class="scena">
+        <div class="personaggio">
+          <div class="avatar socrate">🏛</div>
+          <span class="nome">Socrate</span>
+        </div>
+        <div class="bubble soc">
+          «Dunque, giovani: cosa rende davvero forte un gruppo?»
+        </div>
+      </div>
+      <div class="scena destra">
+        <div class="personaggio">
+          <div class="avatar cambiato">🙂</div>
+          <span class="nome">Bullo 1</span>
+        </div>
+        <div class="bubble cam">«Il rispetto.»</div>
+      </div>
+      <div class="scena destra">
+        <div class="personaggio">
+          <div class="avatar cambiato">🙂</div>
+          <span class="nome">Bullo 2</span>
+        </div>
+        <div class="bubble cam">«Aiutarsi.»</div>
+      </div>
+      <div class="scena destra">
+        <div class="personaggio">
+          <div class="avatar cambiato">🙂</div>
+          <span class="nome">Bullo 3</span>
+        </div>
+        <div class="bubble cam">«Non umiliare gli altri.»</div>
+      </div>
+      <div class="insight">
+        <strong>La trasformazione:</strong> Anche i bulli, guidati dalla domanda, trovano da soli la risposta giusta. Il metodo socratico non accusa — <em>illumina</em>.
+      </div>
+    </div>
+  </div>
+
+  <!-- CONCLUSIONE -->
+  <div class="conclusione">
+    <blockquote>
+      «Non tutto ciò che chiamiamo amicizia lo è davvero,<br>
+      perché un vero amico non ferisce e non umilia,<br>
+      ma sostiene.»
+    </blockquote>
+    <cite>— Anita, al termine del dialogo socratico</cite>
+  </div>
+
+</main>
+
+<footer>
+  Erika · Anita · Camilla · Angela · Eva — Dialogo Socratico sull'Amicizia e il Rispetto
+</footer>
+
+</body>
+</html>
